@@ -38,9 +38,11 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
 - [React](https://reactjs.org)
 - [React Native](https://facebook.github.io/react-native/)
 - [Expo](https://expo.io/)
+- [Jest](https://jestjs.io/)
 
 ## 💻 Projeto
 
@@ -62,6 +64,11 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 git clone https://github.com/marcosjcs/be-the-hero.git
 cd be-the-hero
 npm install
+```
+#### Criando o banco de dados SQLite
+```sh
+cd backend
+npx knex migrate:latest
 ```
 #### Iniciando Backend
 ```sh
