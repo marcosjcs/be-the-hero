@@ -50,4 +50,18 @@ routes.delete('/incidents/:id', celebrate({
     }),
 }), IncidentController.delete);
 
+routes.put('/incidents/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.number().required(),
+    }),
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.BODY]: Joi.object().keys({
+        title: Joi.string().required(),
+        description: Joi.string().required(),
+        value: Joi.number().required(),
+    })
+}), IncidentController.edit);
+
 module.exports = routes;
