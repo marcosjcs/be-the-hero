@@ -14,22 +14,25 @@ export default function Profile() {
 
     const ongId = localStorage.getItem('ongId');
     const ongName = localStorage.getItem('ongName');
+    const ongToken = localStorage.getItem('ongToken');
 
     useEffect(() => {
         api.get('profile', {
             headers: {
                 Authorization: ongId,
+                Token: ongToken,
             }
         }).then(response => {
             setIncidents(response.data);
         })
-    }, [ongId]);
+    }, [ongId, ongToken]);
 
     async function handleDeleteIncident(id){
         try {
             await api.delete(`incidents/${id}`, {
                 headers: {
                     Authorization: ongId,
+                    Token: ongToken,
                 }
             });
             setIncidents(incidents.filter(incident => incident.id !== id));

@@ -18,6 +18,8 @@ export default function EditIncident(){
 
     const ongId = localStorage.getItem('ongId');
     const incident = history.location.state;
+    const ongToken = localStorage.getItem('ongToken');
+    
     useEffect(() => {
         setTitle(incident.title);
         setDescription(incident.description);
@@ -37,6 +39,7 @@ export default function EditIncident(){
             await api.put(`incidents/${incident.id}`, data, {
                 headers: {
                     Authorization: ongId,
+                    Token: ongToken,
                 }
             });
             
