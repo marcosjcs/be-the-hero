@@ -5,6 +5,8 @@ const IncidentController = require('./controllers/IncidentController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
 
+const authMiddleware = require('./middlewares/auth');
+
 const routes = express.Router();
 
 routes.post('/sessions', SessionController.create);
@@ -21,7 +23,7 @@ routes.post('/ongs', celebrate({
     })
 }), OngController.create);
 
-routes.get('/profile', celebrate({
+routes.get('/profile', authMiddleware, celebrate({
     [Segments.HEADERS]: Joi.object({
         authorization: Joi.string().required(),
     }).unknown(),
@@ -33,7 +35,7 @@ routes.get('/incidents', celebrate({
     }),
 }), IncidentController.index);
 
-routes.post('/incidents', celebrate({
+routes.post('/incidents', authMiddleware, celebrate({
     [Segments.HEADERS]: Joi.object({
         authorization: Joi.string().required(),
     }).unknown(),
@@ -44,13 +46,13 @@ routes.post('/incidents', celebrate({
     })
 }), IncidentController.create);
 
-routes.delete('/incidents/:id', celebrate({
+routes.delete('/incidents/:id', authMiddleware, celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required(),
     }),
 }), IncidentController.delete);
 
-routes.put('/incidents/:id', celebrate({
+routes.put('/incidents/:id', authMiddleware, celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required(),
     }),
