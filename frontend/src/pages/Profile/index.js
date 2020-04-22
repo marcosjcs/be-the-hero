@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import {FiPower, FiTrash2, FiEdit} from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import api from '../../services/api'
 
+import Header from '../../components/Header';
 import './styles.css';
-import logoImg from '../../assets/logo.svg';
 
-export default function Profile() {
+
+export default function Profile(props) {
     const [incidents, setIncidents] = useState([]);
 
     const history = useHistory();
@@ -47,21 +48,19 @@ export default function Profile() {
     }
 
     function handleLogout(){
-        localStorage.clear();
+        localStorage.removeItem('ongId');
+        localStorage.removeItem('ongName');
+        localStorage.removeItem('ongToken');
         history.push('/');
     }
 
     return (
         <div className="profile-container">
-            <header>
-                <img src={logoImg} alt="Be The Hero"/>
-                <span>Bem vinda, {ongName}</span>
+            <Header toggleTheme={props.toggleTheme} 
+                    ongName={ongName} 
+                    handleLogout={handleLogout} 
+            />
 
-                <Link className="button" to="/incidents/new">Cadastrar novo caso</Link>
-                <button onClick={handleLogout} type="button">
-                    <FiPower size={18} color="#e02041" />
-                </button>
-            </header>
             <h1>Casos Cadastrados</h1>
 
             <ul>
